@@ -31,7 +31,7 @@
 
 ## Running the app
 
-##### NOTE: In src/auth/utils/GithubStrategy.ts Replace clientId and client secret with your clientId and clientSecret. I know that .env variables should be used but this is a small ap.
+##### NOTE: In src/auth/utils/GithubStrategy.ts (line 10 & 11) replace clientId and client secret with your clientId and clientSecret. I know that .env variables should be used but this is a small app.
 
 ```bash
 # clone the repo
