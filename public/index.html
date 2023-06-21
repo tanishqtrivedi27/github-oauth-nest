@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Create sample repo in your GitHub</title>
+</head>
+<body>
+  <h2>Create sample repo in your GitHub</h2>
+  <div id="content">
+    Loading...
+  </div>
+
+  <script>
+    async function displayForm() {
+        const res = await fetch('http://localhost:3000/auth/status', {
+            method: "GET",
+            mode: "cors",
+            cache: "no-cache",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+        const data = await res.json();
+        console.log(data);
+        const contentElement = document.getElementById('content');
+        if (data.msg === "Authenticated")
+        {   
+            const name = data.username;
+            contentElement.innerHTML = `<h4>${name} Logged in</h4><button onclick="createRepo()">Create Repo</button>`;
+        }
+        else
+        {
+            contentElement.innerHTML = '<a href="http://localhost:3000/auth/github/login">Log in using GitHub</a>';
+        }
+    }
+
+    async function createRepo() {
+        const res = await fetch('http://localhost:3000/auth/repo', {
+            method: "GET",
+            mode: "cors",
+            cache: "no-cache",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        const data = await res.json();
+        console.log(data);
+        const contentElement = document.getElementById('content');
+        if (data.message ==='Repository created with files')
+        {   
+            
+            contentElement.innerHTML = '<p>Repository created with files</p>';
+        }
+        else
+        {
+            contentElement.innerHTML = '<p>Error creating Repositories</p>';
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', displayForm);
+    window.addEventListener('load', displayForm);
+  </script>
+</body>
+</html>
